@@ -1,15 +1,14 @@
-# crypto-systems-portfolio
+## Crypto Systems Portfolio
 
-This is a full portfolio of all my crypto systems I have created in the past few years.
+# This is a full portfolio of all my crypto systems I have created in the past few years.
 
 My old portfolio is incredibly messy and filled with tons of junk, so this is a new and updated one with only my best work.
-
 I have left descriptions on every project inside the README if you just want a quick explanation without diving into all the deep details.
 
 Thank you for allowing me to show off all my years of work.
 
 
-About Me:
+## About Me:
 
 I am a systems and software engineer with roughly 10 years of experience programming, starting when I was 10 years old with basic robotics. 
 I am extensively knowledgable in Java, Python, JavaScript, and C/C++. I have a couple of years of experience with Rust and HTML, and am growing a solid foundation of Solidity as well. 
