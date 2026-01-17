@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+/* smooth scroll */
+html { scroll-behavior: smooth; }
+
+/* force dark site background */
+html, body {
+  margin: 0;
+  
+  color: #fff;
+}
