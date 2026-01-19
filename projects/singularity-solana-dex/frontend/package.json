@@ -1,0 +1,24 @@
+{
+  "name": "singularity-perps-frontend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@solana/web3.js": "1.87.6",
+    "@zetamarkets/sdk": "^1.64.2",
+    "buffer": "^6.0.3",
+    "rpc-websockets": "7.5.1"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0",
+    "vite-plugin-node-polyfills": "^0.22.0"
+  },
+  "overrides": {
+    "rpc-websockets": "7.5.1",
+    "@solana/web3.js": "1.87.6"
+  }
+}

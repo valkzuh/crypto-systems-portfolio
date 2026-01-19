@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Singularity Perps</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="bg-glow"></div>
+    <div class="boot-screen" id="bootScreen">
+      <div class="boot-logo">
+        <img src="/assets/logo.png" alt="Singularity logo" />
+      </div>
+      <div class="boot-title">Singularity</div>
+      <div class="boot-sub">Unlocking terminal...</div>
+    </div>
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo" id="brandLogo">
+          <img src="/assets/logo.png" alt="Singularity logo" />
+        </div>
+        <div>
+          <p class="brand-name">Singularity</p>
+          <p class="brand-sub">Perps Terminal</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <div class="status-pill">
+          <span class="dot"></span>
+          <span id="health">Inactive</span>
+        </div>
+        <div class="balance-pill">
+          <span class="label">Buying power</span>
+          <span id="buyingPower">--</span>
+          <span class="unit">USDC</span>
+        </div>
+        <div class="chain-pill">
+          <span class="label">Chain</span>
+          <span id="chainLabel">Solana mainnet - USDC (SPL)</span>
+        </div>
+        <span id="walletStatus" class="wallet-status">Wallet: not connected</span>
+        <button id="connectWallet" class="btn primary">Connect wallet</button>
+        <button id="disconnectWallet" class="btn ghost">Disconnect</button>
+        <button id="swapUsdc" class="btn ghost">Swap SOL -> USDC</button>
+        <button id="helpBtn" class="btn ghost">? Help</button>
+      </div>
+    </header>
+
+    <!-- Help Modal -->
+    <div id="helpModal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>How to Use Singularity Perps DEX</h2>
+          <button id="closeHelp" class="btn-close">×</button>
+        </div>
+        <div class="modal-body">
+          <section>
+            <h3>🚀 Getting Started</h3>
+            <ol>
+              <li><strong>Install Phantom Wallet</strong> - Download from <a href="https://phantom.app" target="_blank">phantom.app</a></li>
+              <li><strong>Get SOL & USDC</strong> - You need SOL for gas fees and USDC for trading</li>
+              <li><strong>Connect Wallet</strong> - Click "Connect wallet" button in the top right</li>
+            </ol>
+          </section>
+
+          <section>
+            <h3>💰 Funding Your Trading Account</h3>
+            <ol>
+              <li><strong>Get USDC</strong> - Click "Swap SOL -> USDC" to convert SOL to USDC on Jupiter</li>
+              <li><strong>Deposit to Zeta</strong> - Enter amount in "Deposit amount" field and click "Deposit USDC to Zeta"</li>
+              <li><strong>First Deposit</strong> - Your first deposit creates a Zeta margin account (~0.02 SOL one-time fee)</li>
+              <li><strong>Check Balance</strong> - Your "Buying power" shows your available trading balance</li>
+            </ol>
+          </section>
+
+          <section>
+            <h3>📈 Placing Trades</h3>
+            <ol>
+              <li><strong>Select Market</strong> - Choose from available markets (BTC, ETH, SOL, etc.)</li>
+              <li><strong>Choose Side</strong> - Click "Long" (bet price goes up) or "Short" (bet price goes down)</li>
+              <li><strong>Order Type</strong> - Choose "Market" (execute now) or "Limit" (execute at specific price)</li>
+              <li><strong>Enter Amount</strong> - Input USDC amount you want to trade</li>
+              <li><strong>Set Leverage</strong> - Choose 1x-10x leverage (higher = more risk/reward)</li>
+              <li><strong>Place Trade</strong> - Click "Place trade" and approve in Phantom wallet</li>
+            </ol>
+          </section>
+
+          <section>
+            <h3>📊 Understanding the Interface</h3>
+            <ul>
+              <li><strong>Chart</strong> - Price chart powered by TradingView</li>
+              <li><strong>Markets List</strong> - Left sidebar shows available trading pairs</li>
+              <li><strong>Order Book</strong> - Shows current buy/sell orders and market depth</li>
+              <li><strong>Recent Trades</strong> - Live feed of recent market transactions</li>
+              <li><strong>Positions</strong> - Bottom section shows your open positions</li>
+              <li><strong>Est. liq</strong> - Estimated liquidation price for your position</li>
+              <li><strong>Funding / hr</strong> - Funding rate paid/received per hour for holding position</li>
+            </ul>
+          </section>
+
+          <section>
+            <h3>⚠️ Important Notes</h3>
+            <ul>
+              <li><strong>Real Money</strong> - This is mainnet - you're trading with real USDC</li>
+              <li><strong>Liquidation Risk</strong> - If price moves against you, you can be liquidated</li>
+              <li><strong>Start Small</strong> - Test with small amounts first</li>
+              <li><strong>Gas Fees</strong> - Keep SOL in wallet for transaction fees</li>
+              <li><strong>Funding Rates</strong> - You pay/receive funding every hour based on position</li>
+            </ul>
+          </section>
+
+          <section>
+            <h3>🔧 Troubleshooting</h3>
+            <ul>
+              <li><strong>"Connect wallet first"</strong> - Make sure Phantom is installed and unlocked</li>
+              <li><strong>"Insufficient buying power"</strong> - Deposit more USDC to Zeta</li>
+              <li><strong>"Zeta initialization failed"</strong> - Refresh page and reconnect wallet</li>
+              <li><strong>Transaction failing</strong> - Ensure you have enough SOL for gas fees</li>
+            </ul>
+          </section>
+
+          <section>
+            <h3>📚 Learn More</h3>
+            <ul>
+              <li><a href="https://docs.zeta.markets" target="_blank">Zeta Markets Documentation</a></li>
+              <li><a href="https://phantom.app/learn" target="_blank">Phantom Wallet Guide</a></li>
+              <li><a href="https://jup.ag" target="_blank">Jupiter Aggregator (for swaps)</a></li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <div class="ticker-bar" id="tickerBar"></div>
+
+    <main class="terminal">
+      <aside class="sidebar">
+        <div class="panel-head">
+          <h2>Markets</h2>
+          <button id="refreshMarkets" class="btn ghost">Refresh</button>
+        </div>
+        <div class="market-list" id="marketList"></div>
+        <div class="panel-block">
+          <label>API base</label>
+          <input id="apiBase" value="http://localhost:8080" />
+          <button id="checkHealth" class="btn">Check</button>
+        </div>
+        <input id="ownerPubkey" type="hidden" />
+        <input id="accountStatePubkey" type="hidden" />
+      </aside>
+
+      <section class="center">
+        <div class="chart-shell panel">
+          <div class="chart-head">
+            <div class="chart-pair">
+              <div class="market-select" id="marketSelect">
+                <div class="market-current" id="marketCurrent">
+                  <div class="coin-logo" id="marketLogoWrap">
+                    <img id="marketLogo" alt="Market logo" />
+                    <span id="marketLogoFallback">BTC</span>
+                  </div>
+                  <span id="marketSymbol">BTC</span>
+                  <span class="market-arrow">v</span>
+                </div>
+                <div class="market-menu hidden" id="marketMenu">
+                  <div class="market-search">
+                    <input id="marketSearch" placeholder="Search coins..." />
+                  </div>
+                  <div class="market-menu-list" id="marketMenuList"></div>
+                </div>
+              </div>
+              <span class="muted">Perps</span>
+            </div>
+            <div class="chart-meta">
+              <span>Oracle price</span>
+              <strong id="oraclePrice">--</strong>
+            </div>
+            <div class="chart-meta">
+              <span>Funding</span>
+              <strong id="fundingRate">0.0125%</strong>
+              <span id="fundingCountdown" class="muted">00:00:00</span>
+            </div>
+          </div>
+          <div class="chart-body">
+            <div class="chart-embed" id="tvChart">
+              <div class="chart-overlay" id="chartOverlay"></div>
+              <div class="chart-placeholder">Loading chart...</div>
+            </div>
+            <div class="orderbook-panel">
+              <div class="order-tabs">
+                <button class="tab active" data-tab="orderbook">Order Book</button>
+                <button class="tab" data-tab="trades">Trades</button>
+              </div>
+              <div class="price-strip">
+                <div>
+                  <span>Mark</span>
+                  <strong id="markPriceLabel">--</strong>
+                </div>
+                <div>
+                  <span>Oracle</span>
+                  <strong id="oraclePriceLabel">--</strong>
+                </div>
+                <div>
+                  <span>Index</span>
+                  <strong id="indexPriceLabel">--</strong>
+                </div>
+              </div>
+              <div class="orderbook-head">
+                <span>Price</span>
+                <span>Amount</span>
+              </div>
+              <div id="orderBook" class="order-book"></div>
+              <div id="trades" class="trades hidden"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bottom-row panel">
+          <h3>Positions</h3>
+          <div id="positions" class="positions"></div>
+          <div class="panel-block">
+            <h3>Risk Summary</h3>
+            <p class="muted" id="riskSummary">No data.</p>
+          </div>
+        </div>
+      </section>
+
+      <aside class="rightbar">
+        <div class="panel trade-panel">
+          <div class="side-toggle">
+            <button id="longBtn" class="btn primary">Long</button>
+            <button id="shortBtn" class="btn ghost">Short</button>
+          </div>
+          <div class="order-type-toggle">
+            <button class="tab active" data-order="market" id="orderMarket">Market</button>
+            <button class="tab" data-order="limit" id="orderLimit">Limit</button>
+          </div>
+          <label>Market</label>
+          <select id="tradeMarket"></select>
+          <label>Buy amount (USDC)</label>
+          <input id="tradeQty" placeholder="0.0" />
+          <div id="limitPriceGroup" class="hidden">
+            <label>Limit price</label>
+            <input id="limitPrice" placeholder="0.0" />
+          </div>
+          <label>Leverage (x)</label>
+          <select id="tradeLeverage"></select>
+          <label>Entry price</label>
+          <div id="entryPriceDisplay" class="stat-field">--</div>
+          <label>Mark price</label>
+          <div id="markPriceDisplay" class="stat-field">--</div>
+          <div class="preview-card" id="positionPreview">
+            <div>
+              <span>Est. liq</span>
+              <strong id="liqPrice">--</strong>
+            </div>
+            <div>
+              <span>Initial margin</span>
+              <strong id="initialMargin">--</strong>
+            </div>
+            <div>
+              <span>Fees</span>
+              <strong id="estimatedFees">--</strong>
+            </div>
+            <div>
+              <span>Funding / hr</span>
+              <strong id="fundingPerHour">--</strong>
+            </div>
+          </div>
+          <label>Deposit amount (USDC)</label>
+          <input id="depositAmount" placeholder="100" />
+          <button id="depositUsdc" class="btn ghost">Deposit USDC to Zeta</button>
+          <input id="positionPubkey" type="hidden" />
+          <button id="openPosition" class="btn primary">Place trade</button>
+
+          <div class="divider"></div>
+          <h3>Adjust / Close</h3>
+          <label>Market</label>
+          <select id="manageMarket"></select>
+          <label>Exit price</label>
+          <input id="closePrice" placeholder="0.0" />
+          <button id="closePosition" class="btn ghost">Close position</button>
+          <label>New leverage (x)</label>
+          <input id="newLeverage" placeholder="3" />
+          <label>Mark price</label>
+          <input id="manageMark" placeholder="0.0" />
+          <button id="adjustLeverage" class="btn">Adjust leverage</button>
+          <p class="muted">Account id: <span id="accountId">none</span></p>
+        </div>
+      </aside>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
